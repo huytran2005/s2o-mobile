@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -20,12 +21,15 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,22 +40,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
 fun SignUpScreen(
+    viewModel: AuthViewModel,
     onBackClick: () -> Unit = {},
-    onSignUpClick: () -> Unit = {},
     onLoginClick: () -> Unit = {}
 ) {
-    var fullName by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var phone by remember { mutableStateOf("") }
-    var dob by remember { mutableStateOf("") }
+    val state by viewModel.state.collectAsState()
     var passwordVisible by remember { mutableStateOf(false) }
+
+    // Xử lý khi đăng ký thành công
+    LaunchedEffect(state.isRegisterSuccess) {
+        if (state.isRegisterSuccess) {
+            viewModel.resetRegisterState()
+            onLoginClick() // Quay lại màn hình đăng nhập
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -101,12 +108,24 @@ fun SignUpScreen(
                 }
 
                 item {
-                    CustomInputField(label = "Họ và Tên", value = fullName, onValueChange = { fullName = it }, placeholder = "Nhập họ và tên")
+                    CustomInputField(
+                        label = "Họ và Tên",
+                        value = state.fullName,
+                        onValueChange = viewModel::onFullNameChange,
+                        placeholder = "Nhập họ và tên",
+                        enabled = !state.isLoading
+                    )
                     Spacer(modifier = Modifier.height(16.dp))
                 }
 
                 item {
-                    CustomInputField(label = "Email", value = email, onValueChange = { email = it }, placeholder = "Nhập email của bạn")
+                    CustomInputField(
+                        label = "Email",
+                        value = state.email,
+                        onValueChange = viewModel::onEmailChange,
+                        placeholder = "Nhập email của bạn",
+                        enabled = !state.isLoading
+                    )
                     Spacer(modifier = Modifier.height(16.dp))
                 }
 
@@ -114,8 +133,8 @@ fun SignUpScreen(
                     Text("Mật Khẩu", fontSize = 18.sp, fontWeight = FontWeight.Bold)
                     Spacer(modifier = Modifier.height(8.dp))
                     TextField(
-                        value = password,
-                        onValueChange = { password = it },
+                        value = state.password,
+                        onValueChange = viewModel::onPasswordChange,
                         modifier = Modifier.fillMaxWidth(),
                         placeholder = { Text("Nhập mật khẩu của bạn", color = Color.Gray) },
                         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -132,24 +151,31 @@ fun SignUpScreen(
                             unfocusedIndicatorColor = Color.Transparent,
                         ),
                         shape = RoundedCornerShape(12.dp),
-                        singleLine = true
+                        singleLine = true,
+                        enabled = !state.isLoading
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                 }
 
                 item {
-                    CustomInputField(label = "Số Điện Thoại", value = phone, onValueChange = { phone = it }, placeholder = "Nhập số điện thoại")
+                    CustomInputField(
+                        label = "Số Điện Thoại",
+                        value = state.phone,
+                        onValueChange = viewModel::onPhoneChange,
+                        placeholder = "Nhập số điện thoại",
+                        enabled = !state.isLoading
+                    )
                     Spacer(modifier = Modifier.height(16.dp))
                 }
 
                 item {
-                    CustomInputField(label = "Ngày Sinh", value = dob, onValueChange = { dob = it }, placeholder = "DD/MM/YYYY")
-                    Spacer(modifier = Modifier.height(48.dp))
-                }
-
-                item {
+                    state.error?.let {
+                        Text(text = it, color = Color.Red, fontSize = 14.sp)
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
+                    
                     Button(
-                        onClick = onSignUpClick,
+                        onClick = { viewModel.register() },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp),
@@ -157,9 +183,14 @@ fun SignUpScreen(
                             containerColor = PrimaryOrange,
                             contentColor = Color.White
                         ),
-                        shape = RoundedCornerShape(12.dp)
+                        shape = RoundedCornerShape(12.dp),
+                        enabled = !state.isLoading
                     ) {
-                        Text(text = "Đăng Ký", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                        if (state.isLoading) {
+                            CircularProgressIndicator(color = Color.White, modifier = Modifier.size(24.dp))
+                        } else {
+                            Text(text = "Đăng Ký", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                        }
                     }
                     Spacer(modifier = Modifier.height(24.dp))
                 }
@@ -190,7 +221,8 @@ fun CustomInputField(
     label: String,
     value: String,
     onValueChange: (String) -> Unit,
-    placeholder: String
+    placeholder: String,
+    enabled: Boolean = true
 ) {
     Text(label, fontSize = 18.sp, fontWeight = FontWeight.Bold)
     Spacer(modifier = Modifier.height(8.dp))
@@ -206,12 +238,7 @@ fun CustomInputField(
             unfocusedIndicatorColor = Color.Transparent,
         ),
         shape = RoundedCornerShape(12.dp),
-        singleLine = true
+        singleLine = true,
+        enabled = enabled
     )
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun SignUpScreenPreview() {
-    SignUpScreen()
 }

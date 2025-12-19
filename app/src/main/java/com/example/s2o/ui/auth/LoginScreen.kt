@@ -19,12 +19,15 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,22 +38,28 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 val PrimaryYellow = Color(0xFFF5CB58)
 val PrimaryOrange = Color(0xFFF15A24)
 val InputBg = Color(0xFFF3E9B5)
-
 @Composable
 fun LogInScreen(
+    viewModel: AuthViewModel,
     onBackClick: () -> Unit = {},
-    onSignUpClick: () -> Unit = {}
+    onSignUpClick: () -> Unit = {},
+    onLoginSuccess: () -> Unit = {}
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    val state by viewModel.state.collectAsState()
     var passwordVisible by remember { mutableStateOf(false) }
+
+    // Xử lý khi đăng nhập thành công
+    LaunchedEffect(state.isLoginSuccess) {
+        if (state.isLoginSuccess) {
+            onLoginSuccess()
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -101,8 +110,8 @@ fun LogInScreen(
                 Spacer(modifier = Modifier.height(8.dp))
                 
                 TextField(
-                    value = email,
-                    onValueChange = { email = it },
+                    value = state.email,
+                    onValueChange = viewModel::onEmailChange,
                     modifier = Modifier.fillMaxWidth(),
                     placeholder = { Text("Nhập Email Của Bạn", color = Color.Gray) },
                     colors = TextFieldDefaults.colors(
@@ -112,7 +121,8 @@ fun LogInScreen(
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
                     shape = RoundedCornerShape(12.dp),
-                    singleLine = true
+                    singleLine = true,
+                    enabled = !state.isLoading
                 )
                 
                 Spacer(modifier = Modifier.height(24.dp))
@@ -121,8 +131,8 @@ fun LogInScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 TextField(
-                    value = password,
-                    onValueChange = { password = it },
+                    value = state.password,
+                    onValueChange = viewModel::onPasswordChange,
                     modifier = Modifier.fillMaxWidth(),
                     placeholder = { Text("Nhập Mật Khẩu Của Bạn", color = Color.Gray) },
                     visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -142,13 +152,20 @@ fun LogInScreen(
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
                     shape = RoundedCornerShape(12.dp),
-                    singleLine = true
+                    singleLine = true,
+                    enabled = !state.isLoading
                 )
+
+                // Hiển thị lỗi nếu có
+                state.error?.let {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = it, color = Color.Red, fontSize = 14.sp)
+                }
 
                 Spacer(modifier = Modifier.height(48.dp))
 
                 Button(
-                    onClick = { /* Xử lý đăng nhập */ },
+                    onClick = { viewModel.login() },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
@@ -156,9 +173,14 @@ fun LogInScreen(
                         containerColor = PrimaryOrange,
                         contentColor = Color.White
                     ),
-                    shape = RoundedCornerShape(12.dp)
+                    shape = RoundedCornerShape(12.dp),
+                    enabled = !state.isLoading
                 ) {
-                    Text(text = "Đăng Nhập", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                    if (state.isLoading) {
+                        CircularProgressIndicator(color = Color.White, modifier = Modifier.padding(8.dp))
+                    } else {
+                        Text(text = "Đăng Nhập", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))
@@ -179,10 +201,4 @@ fun LogInScreen(
             }
         }
     }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun LoginScreenPreview() {
-    LogInScreen()
 }

@@ -1,11 +1,11 @@
 package com.example.s2o.data.remote.auth.dto
 
-data class LoginResponse(
-    val token: String,
-    val user: UserDto
-)
+import com.google.gson.annotations.SerializedName
 
-data class UserDto(
-    val id: Int,
-    val name: String
+data class LoginResponse(
+    @SerializedName("access_token")
+    val accessToken: String,
+    
+    @SerializedName("token_type")
+    val tokenType: String
 )

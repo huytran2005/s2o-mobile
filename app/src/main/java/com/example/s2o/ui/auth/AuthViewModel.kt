@@ -24,32 +24,53 @@ class AuthViewModel(
         _state.update { it.copy(password = value) }
     }
 
+    fun onFullNameChange(value: String) {
+        _state.update { it.copy(fullName = value) }
+    }
+
+    fun onPhoneChange(value: String) {
+        _state.update { it.copy(phone = value) }
+    }
+
+
     fun login() {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true, error = null) }
-
-            when (val result = repository.login(
-                state.value.email,
-                state.value.password
-            )) {
-                is ApiResult.Loading -> {
-                    _state.value = state.value.copy(isLoading = true)
-                }
-
+            val result = repository.login(state.value.email, state.value.password)
+            when (result) {
                 is ApiResult.Success -> {
-                    _state.value = state.value.copy(
-                        isLoading = false,
-                        isLoginSuccess = true
-                    )
+                    _state.update { it.copy(isLoading = false, isLoginSuccess = true) }
                 }
-
                 is ApiResult.Error -> {
-                    _state.value = state.value.copy(
-                        isLoading = false,
-                        error = result.message
-                    )
+                    _state.update { it.copy(isLoading = false, error = result.message) }
                 }
+                else -> {}
             }
         }
+    }
+
+    fun register() {
+        viewModelScope.launch {
+            _state.update { it.copy(isLoading = true, error = null) }
+            val result = repository.register(
+                name = state.value.fullName,
+                email = state.value.email,
+                password = state.value.password,
+                phone = state.value.phone,
+            )
+            when (result) {
+                is ApiResult.Success -> {
+                    _state.update { it.copy(isLoading = false, isRegisterSuccess = true) }
+                }
+                is ApiResult.Error -> {
+                    _state.update { it.copy(isLoading = false, error = result.message) }
+                }
+                else -> {}
+            }
+        }
+    }
+    
+    fun resetRegisterState() {
+        _state.update { it.copy(isRegisterSuccess = false) }
     }
 }
