@@ -33,6 +33,8 @@ import com.example.s2o.R
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.s2o.ui.theme.*
+
 @Composable
 fun OnBoardingScreenFirst(
     onSkip: () -> Unit = {},
@@ -82,7 +84,7 @@ fun OnBoardingScreenFirst(
                 Icon(
                     painter = painterResource(id = R.drawable.ic_delivery),
                     contentDescription = null,
-                    tint = Color(0xFFFF5722),
+                    tint = primary,
                     modifier = Modifier.size(48.dp)
                 )
 
@@ -93,7 +95,7 @@ fun OnBoardingScreenFirst(
                     text = "Đặt món ăn tại nhà hàng",
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFFFF5722)
+                    color = primary
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -111,15 +113,15 @@ fun OnBoardingScreenFirst(
 
                 ) {
                     Button(onClick = {}, modifier = Modifier.height(8.dp,).width(28.dp), colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFFF5722)
+                        containerColor = primary
                     )) {
                     }
                     Button(onClick = {}, modifier = Modifier.height(8.dp,).width(28.dp), colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFF5F5F5)
+                        containerColor = fourth
                     )) {
                     }
                     Button(onClick = {}, modifier = Modifier.height(8.dp,).width(28.dp), colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFF5F5F5)
+                        containerColor = fourth
                     )) {
                     }
                 }
@@ -128,7 +130,7 @@ fun OnBoardingScreenFirst(
                 Button(
                     onClick = onNext,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFFF5722)
+                        containerColor = primary
                     ),
                     shape = RoundedCornerShape(24.dp),
                     modifier = Modifier

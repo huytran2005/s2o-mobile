@@ -42,6 +42,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.s2o.ui.theme.*
 
 @Composable
 fun SignUpScreen(
@@ -63,7 +64,7 @@ fun SignUpScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(PrimaryYellow),
+            .background(third),
     ) {
         Box(
             modifier = Modifier
@@ -78,7 +79,7 @@ fun SignUpScreen(
                     text = "<",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
-                    color = PrimaryOrange
+                    color = primary
                 )
             }
 
@@ -141,12 +142,12 @@ fun SignUpScreen(
                         trailingIcon = {
                             val image = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                             IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                                Icon(imageVector = image, contentDescription = null, tint = PrimaryOrange)
+                                Icon(imageVector = image, contentDescription = null, tint = primary)
                             }
                         },
                         colors = TextFieldDefaults.colors(
-                            focusedContainerColor = InputBg,
-                            unfocusedContainerColor = InputBg,
+                            focusedContainerColor = second,
+                            unfocusedContainerColor = second,
                             focusedIndicatorColor = Color.Transparent,
                             unfocusedIndicatorColor = Color.Transparent,
                         ),
@@ -180,7 +181,7 @@ fun SignUpScreen(
                             .fillMaxWidth()
                             .height(56.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = PrimaryOrange,
+                            containerColor = primary,
                             contentColor = Color.White
                         ),
                         shape = RoundedCornerShape(12.dp),
@@ -204,7 +205,7 @@ fun SignUpScreen(
                         Text("Đã có tài khoản? ", color = Color.Gray)
                         Text(
                             "Đăng nhập ngay",
-                            color = PrimaryOrange,
+                            color = primary,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.clickable { onLoginClick() }
                         )
@@ -232,8 +233,8 @@ fun CustomInputField(
         modifier = Modifier.fillMaxWidth(),
         placeholder = { Text(placeholder, color = Color.Gray) },
         colors = TextFieldDefaults.colors(
-            focusedContainerColor = InputBg,
-            unfocusedContainerColor = InputBg,
+            focusedContainerColor = third,
+            unfocusedContainerColor = third,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
         ),

@@ -38,12 +38,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.s2o.ui.theme.*
 
-val PrimaryYellow = Color(0xFFF5CB58)
-val PrimaryOrange = Color(0xFFF15A24)
-val InputBg = Color(0xFFF3E9B5)
 @Composable
 fun LogInScreen(
     viewModel: AuthViewModel,
@@ -55,16 +54,16 @@ fun LogInScreen(
     var passwordVisible by remember { mutableStateOf(false) }
 
     // Xử lý khi đăng nhập thành công
-    LaunchedEffect(state.isLoginSuccess) {
-        if (state.isLoginSuccess) {
-            onLoginSuccess()
-        }
-    }
+//    LaunchedEffect(state.isLoginSuccess) {
+//        if (state.isLoginSuccess) {
+//            onLoginSuccess()
+//        }
+//    }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(PrimaryYellow),
+            .background(third),
     ) {
         Box(
             modifier = Modifier
@@ -79,7 +78,7 @@ fun LogInScreen(
                     text = "<",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
-                    color = PrimaryOrange
+                    color = primary
                 )
             }
 
@@ -115,8 +114,8 @@ fun LogInScreen(
                     modifier = Modifier.fillMaxWidth(),
                     placeholder = { Text("Nhập Email Của Bạn", color = Color.Gray) },
                     colors = TextFieldDefaults.colors(
-                        focusedContainerColor = InputBg,
-                        unfocusedContainerColor = InputBg,
+                        focusedContainerColor = second,
+                        unfocusedContainerColor = second,
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
@@ -142,12 +141,12 @@ fun LogInScreen(
                         else Icons.Filled.VisibilityOff
 
                         IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                            Icon(imageVector = image, contentDescription = null, tint = PrimaryOrange)
+                            Icon(imageVector = image, contentDescription = null, tint = primary)
                         }
                     },
                     colors = TextFieldDefaults.colors(
-                        focusedContainerColor = InputBg,
-                        unfocusedContainerColor = InputBg,
+                        focusedContainerColor = second,
+                        unfocusedContainerColor = second,
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
@@ -165,12 +164,15 @@ fun LogInScreen(
                 Spacer(modifier = Modifier.height(48.dp))
 
                 Button(
-                    onClick = { viewModel.login() },
+                    onClick = {
+                        viewModel.login()
+                        onLoginSuccess()
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = PrimaryOrange,
+                        containerColor = primary,
                         contentColor = Color.White
                     ),
                     shape = RoundedCornerShape(12.dp),
@@ -193,7 +195,7 @@ fun LogInScreen(
                     Text("Chưa có tài khoản? ", color = Color.Gray)
                     Text(
                         "Đăng ký ngay",
-                        color = PrimaryOrange,
+                        color = primary,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.clickable { onSignUpClick() }
                     )

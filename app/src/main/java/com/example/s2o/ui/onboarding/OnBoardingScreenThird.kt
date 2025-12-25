@@ -32,6 +32,7 @@ import com.example.s2o.R
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.s2o.ui.theme.*
 
 @Composable
 fun OnBoardingScreenThird(
@@ -74,7 +75,7 @@ fun OnBoardingScreenThird(
                 Icon(
                     painter = painterResource(id = R.drawable.icon_desets),
                     contentDescription = null,
-                    tint = Color(0xFFFF5722),
+                    tint = primary,
                     modifier = Modifier.size(48.dp)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
@@ -82,7 +83,7 @@ fun OnBoardingScreenThird(
                     text = "Thưởng thức trọn vẹn vị ngon.",
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFFFF5722)
+                    color = primary
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
@@ -93,16 +94,16 @@ fun OnBoardingScreenThird(
                 )
                 Spacer(modifier = Modifier.height(24.dp))
                 Row {
-                    Box(modifier = Modifier.size(28.dp, 8.dp).background(Color(0xFFF5F5F5), RoundedCornerShape(4.dp)))
+                    Box(modifier = Modifier.size(28.dp, 8.dp).background(fourth, RoundedCornerShape(4.dp)))
                     Spacer(modifier = Modifier.width(8.dp))
-                    Box(modifier = Modifier.size(28.dp, 8.dp).background(Color(0xFFF5F5F5), RoundedCornerShape(4.dp)))
+                    Box(modifier = Modifier.size(28.dp, 8.dp).background(fourth, RoundedCornerShape(4.dp)))
                     Spacer(modifier = Modifier.width(8.dp))
-                    Box(modifier = Modifier.size(28.dp, 8.dp).background(Color(0xFFFF5722), RoundedCornerShape(4.dp)))
+                    Box(modifier = Modifier.size(28.dp, 8.dp).background(primary, RoundedCornerShape(4.dp)))
                 }
                 Spacer(modifier = Modifier.height(24.dp))
                 Button(
                     onClick = onNext,
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF5722)),
+                    colors = ButtonDefaults.buttonColors(containerColor = primary),
                     shape = RoundedCornerShape(24.dp),
                     modifier = Modifier.height(48.dp).width(140.dp)
                 ) {

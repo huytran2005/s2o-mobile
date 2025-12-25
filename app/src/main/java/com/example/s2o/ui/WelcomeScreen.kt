@@ -21,6 +21,8 @@ import com.example.s2o.R
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.s2o.ui.theme.*
+
 
 @Composable
 fun WelcomeScreen(
@@ -31,7 +33,7 @@ fun WelcomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color(0xFFE95322)),
+            .background(color = primary),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -49,21 +51,21 @@ fun WelcomeScreen(
                 onClick = onLoginClick,
                 modifier = Modifier.padding(top = 8.dp).fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0XFFF5CB58),
+                    containerColor = third,
                     contentColor = Color.Black
                 )
             ) {
-                Text("Đăng nhập", color = Color(0xFFE95322), fontSize = 24.sp)
+                Text("Đăng nhập", color = primary, fontSize = 24.sp)
             }
             Button(
                 onClick = onSignUpClick,
                 modifier = Modifier.padding(top = 8.dp).fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFF3E9B5),
+                    containerColor = second,
                     contentColor = Color.Black
                 )
             ) {
-                Text("Đăng ký", color = Color(0xFFE95322), fontSize = 24.sp)
+                Text("Đăng ký", color = primary, fontSize = 24.sp)
             }
         }
 
