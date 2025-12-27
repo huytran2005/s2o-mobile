@@ -1,4 +1,4 @@
-package com.example.s2o.ui.home.Chat.Components
+package com.example.s2o.ui.home.chat.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Mic
 import androidx.compose.material.icons.outlined.Send
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -39,12 +38,10 @@ fun ChatInputBar(
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-
-
         TextField(
             value = text,
             onValueChange = { text = it },
-            placeholder = { Text("Write here...") },
+            placeholder = { Text("Nhập tin nhắn...") },
             modifier = Modifier.weight(1f),
             shape = RoundedCornerShape(24.dp),
             colors = TextFieldDefaults.colors(
@@ -68,7 +65,7 @@ fun ChatInputBar(
         ) {
             Icon(
                 imageVector = Icons.Outlined.Send,
-                contentDescription = "Send",
+                contentDescription = "Gửi",
                 tint = primary
             )
         }

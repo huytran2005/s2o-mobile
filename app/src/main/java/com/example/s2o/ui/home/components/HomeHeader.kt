@@ -15,14 +15,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.s2o.ui.theme.fourth
 import com.example.s2o.ui.theme.primary
+
 @Composable
 fun HomeHeader(
     onSearchClick: () -> Unit,
-    onCartClick: () -> Unit,        // 👈 thêm
+    onCartClick: () -> Unit,
     onProfileClick: () -> Unit,
     modifier: Modifier = Modifier
-)
- {
+) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -43,7 +43,7 @@ fun HomeHeader(
                     value = "",
                     onValueChange = {},
                     enabled = false,
-                    placeholder = { Text("Search") },
+                    placeholder = { Text("Tìm kiếm") },
                     modifier = Modifier.fillMaxSize(),
                     shape = RoundedCornerShape(24.dp),
                     colors = TextFieldDefaults.colors(
@@ -74,7 +74,7 @@ fun HomeHeader(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text("Good Morning", fontSize = 26.sp, color = Color.White)
-        Text("Table 5", fontSize = 14.sp, color = primary)
+        Text("Chào buổi sáng", fontSize = 26.sp, color = Color.White)
+        Text("Bàn số 5", fontSize = 14.sp, color = primary)
     }
 }

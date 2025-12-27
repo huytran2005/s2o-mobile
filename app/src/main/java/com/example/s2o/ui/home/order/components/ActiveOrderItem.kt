@@ -19,14 +19,14 @@ import com.example.s2o.R
 import com.example.s2o.ui.theme.primary
 
 @Composable
-fun CompletedOrderItem(
+fun ActiveOrderItem(
     itemName: String,
     time: String,
     price: String,
     itemsCount: String,
     imageRes: Int,
-    onLeaveReview: () -> Unit,
-    onOrderAgain: () -> Unit
+    onCancel: () -> Unit,
+    onTrack: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -37,7 +37,7 @@ fun CompletedOrderItem(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            //IMAGE
+            // 🍛 IMAGE
             Image(
                 painter = painterResource(id = imageRes),
                 contentDescription = null,
@@ -98,23 +98,23 @@ fun CompletedOrderItem(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Button(
-                        onClick = onLeaveReview,
+                        onClick = onCancel,
                         modifier = Modifier.height(36.dp).weight(1f),
                         colors = ButtonDefaults.buttonColors(containerColor = primary),
                         shape = RoundedCornerShape(12.dp),
                         contentPadding = PaddingValues(0.dp)
                     ) {
-                        Text("Leave review", fontSize = 12.sp, color = Color.White)
+                        Text("Cancel Order", fontSize = 12.sp, color = Color.White)
                     }
 
                     Button(
-                        onClick = onOrderAgain,
+                        onClick = onTrack,
                         modifier = Modifier.height(36.dp).weight(1f),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFDECDA)),
                         shape = RoundedCornerShape(12.dp),
                         contentPadding = PaddingValues(0.dp)
                     ) {
-                        Text("Order Again", fontSize = 12.sp, color = primary)
+                        Text("Track Driver", fontSize = 12.sp, color = primary)
                     }
                 }
             }

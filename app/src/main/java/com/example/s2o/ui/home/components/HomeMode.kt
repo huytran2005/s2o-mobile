@@ -6,6 +6,9 @@ enum class HomeMode {
     ORDERS,
     SETTINGS,
     HISTORY,
-    CHAT
+    CHAT,
+    CATEGORY_DETAIL,
+    PRODUCT_DETAIL,
+    BEST_SELLER,
+    PROFILE
 }
-

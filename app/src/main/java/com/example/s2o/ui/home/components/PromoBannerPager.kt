@@ -35,7 +35,7 @@ fun PromoBannerPager() {
         pageCount = { banners.size }
     )
 
-    // 🔁 AUTO SLIDE
+    //AUTO SLIDE
     LaunchedEffect(Unit) {
         while (true) {
             delay(3000)

@@ -113,7 +113,7 @@ fun OnBoardingScreenSecond(
                     shape = RoundedCornerShape(24.dp),
                     modifier = Modifier.height(48.dp).width(140.dp)
                 ) {
-                    Text(text = "Next", color = Color.White)
+                    Text(text = "Tiếp theo", color = Color.White)
                 }
             }
         }

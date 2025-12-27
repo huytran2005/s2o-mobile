@@ -1,7 +1,6 @@
 package com.example.s2o.ui.home.setting
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -19,74 +18,72 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.s2o.ui.home.setting.components.LogoutConfirm
 import com.example.s2o.ui.home.setting.components.SettingsItem
+import com.example.s2o.ui.theme.third
+
 @Composable
 fun SettingsScreen(
     onBack: () -> Unit
 ) {
     var showLogout by remember { mutableStateOf(false) }
 
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF5CB58))
-            . padding(top=24.dp)
+            .background(third)
     ) {
-
-        // 🔶 HEADER
-        Box(
+        // Header
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(160.dp)
+                .statusBarsPadding()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                imageVector = Icons.Outlined.ArrowBack,
-                contentDescription = null,
-                tint = Color(0xFFFF6F00),
-                modifier = Modifier
-                    .padding(16.dp)
-                    .clickable { onBack() }
-            )
+            IconButton(onClick = onBack) {
+                Icon(Icons.Outlined.ArrowBack, contentDescription = "Quay lại", tint = Color.White)
+            }
+
+            Spacer(modifier = Modifier.width(8.dp))
 
             Text(
-                text = "Settings",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
+                text = "Cài đặt",
                 color = Color.White,
-                modifier = Modifier.align(Alignment.Center)
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
             )
         }
 
-        // ⬜ CARD TRẮNG ĐÈ LÊN
-        Column(
+        //WHITE CONTENT CARD
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 120.dp, start = 16.dp, end = 16.dp)
+                .weight(1f)
                 .background(
                     Color.White,
-                    RoundedCornerShape(24.dp)
+                    RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp)
                 )
-                .padding(vertical = 8.dp)
+                .padding(horizontal = 16.dp, vertical = 24.dp)
         ) {
+            Column {
+                SettingsItem(
+                    icon = Icons.Outlined.Notifications,
+                    title = "Cài đặt thông báo"
+                )
 
-            SettingsItem(
-                icon = Icons.Outlined.Notifications,
-                title = "Notification Setting"
-            )
+                SettingsItem(
+                    icon = Icons.Outlined.Lock,
+                    title = "Cài đặt mật khẩu"
+                )
 
-            SettingsItem(
-                icon = Icons.Outlined.Lock,
-                title = "Password Setting"
-            )
-
-            SettingsItem(
-                icon = Icons.Outlined.Person,
-                title = "Logout",
-                isLogout = true,
-                onClick = { showLogout = true }
-            )
+                SettingsItem(
+                    icon = Icons.Outlined.Person,
+                    title = "Đăng xuất",
+                    isLogout = true,
+                    onClick = { showLogout = true }
+                )
+            }
         }
 
-        // 🔴 LOGOUT CONFIRM
+        //LOGOUT CONFIRM
         if (showLogout) {
             LogoutConfirm(
                 onCancel = { showLogout = false },
