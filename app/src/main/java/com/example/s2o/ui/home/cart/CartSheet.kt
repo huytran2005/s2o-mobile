@@ -28,7 +28,7 @@ fun CartSheet(
             .padding(20.dp)
     ) {
 
-        // 🔥 HEADER
+        // HEADER
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -39,7 +39,7 @@ fun CartSheet(
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = "Cart",
+                text = "Giỏ hàng",
                 color = Color.White,
                 fontSize = 20.sp
             )
@@ -48,7 +48,7 @@ fun CartSheet(
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = "You have 2 items in the cart",
+            text = "Bạn có hai món ăn trong giỏ",
             color = Color.White,
             fontSize = 14.sp
         )
@@ -97,7 +97,7 @@ fun CartSheet(
             )
         ) {
             Text(
-                text = "Checkout",
+                text = "Thánh Toán",
                 color = Color.Black,
                 fontSize = 18.sp
             )

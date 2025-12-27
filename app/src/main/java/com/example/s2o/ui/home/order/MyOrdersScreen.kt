@@ -33,7 +33,7 @@ fun MyOrdersScreen(
             .background(third)
     ) {
 
-        // 🔥 TOP BAR
+        // Header
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -56,13 +56,13 @@ fun MyOrdersScreen(
             Spacer(modifier = Modifier.width(8.dp))
 
             Text(
-                text = if (mode == OrderMode.REVIEW) "Leave a Review" else "My Orders",
+                text = if (mode == OrderMode.REVIEW) "Đánh giá" else "Đơn hàng",
                 color = Color.White,
                 fontSize = 20.sp
             )
         }
 
-        // 🔥 WHITE CONTENT
+        //WHITE CONTENT
         Box(
             modifier = Modifier
                 .weight(1f)

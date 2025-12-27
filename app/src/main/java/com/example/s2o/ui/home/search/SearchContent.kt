@@ -28,7 +28,7 @@ fun SearchContent(
             .background(primary)
     ) {
 
-        // 🔥 TOP BAR (Back + Title)
+        //Header
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -47,13 +47,13 @@ fun SearchContent(
             Spacer(modifier = Modifier.width(8.dp))
 
             Text(
-                text = "Profile",
+                text = "Tìm kiếm",
                 fontSize = 20.sp,
                 color = Color.White
             )
         }
 
-        // 🔥 WHITE CONTENT
+        //WHITE CONTENT
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -68,7 +68,7 @@ fun SearchContent(
             CategoryIconsSection()
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text("Sort by", fontSize = 16.sp)
+            Text("Món ăn", fontSize = 16.sp)
             Divider(modifier = Modifier.padding(vertical = 8.dp))
 
             FilterChipsSection()
@@ -77,10 +77,10 @@ fun SearchContent(
             PriceSliderSection()
             Spacer(modifier = Modifier.height(32.dp))
 
-            // ✅ APPLY BUTTON
+            //APPLY BUTTON
             Button(
                 onClick = {
-                    // TODO: apply filter logic
+
                     onBack() // nếu muốn apply xong quay về Home
                 },
                 modifier = Modifier
@@ -92,7 +92,7 @@ fun SearchContent(
                 )
             ) {
                 Text(
-                    text = "Apply",
+                    text = "Lọc",
                     color = Color.White,
                     fontSize = 18.sp
                 )

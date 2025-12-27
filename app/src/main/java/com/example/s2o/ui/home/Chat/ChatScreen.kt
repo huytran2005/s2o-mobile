@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
-import androidx.compose.material.icons.outlined.Send
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -16,34 +15,30 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.s2o.ui.home.Chat.Components.ChatInputBar
+import com.example.s2o.ui.home.chat.components.ChatInputBar
 import com.example.s2o.ui.theme.primary
 
-// --------------------
 // MODEL
-// --------------------
 data class ChatMessage(
     val text: String,
     val isUser: Boolean
 )
 
-// --------------------
 // SCREEN
-// --------------------
 @Composable
 fun ChatScreen(
     onBack: () -> Unit
 ) {
     val messages = remember {
         mutableStateListOf(
-            ChatMessage("Hello!", true),
+            ChatMessage("Xin chào!", true),
             ChatMessage(
-                "Hello, please choose the number corresponding to your needs for a more efficient service.\n\n" +
-                        "1. Order Management\n" +
-                        "2. Payments Management\n" +
-                        "3. Account management and profile\n" +
-                        "4. About order tracking\n" +
-                        "5. Safety",
+                "Chào bạn, vui lòng chọn số tương ứng với nhu cầu của bạn để được hỗ trợ nhanh nhất.\n\n" +
+                        "1. Quản lý đơn hàng\n" +
+                        "2. Quản lý thanh toán\n" +
+                        "3. Quản lý tài khoản và hồ sơ\n" +
+                        "4. Theo dõi đơn hàng\n" +
+                        "5. An toàn và bảo mật",
                 false
             )
         )
@@ -67,20 +62,20 @@ fun ChatScreen(
             IconButton(onClick = onBack) {
                 Icon(
                     imageVector = Icons.Outlined.ArrowBack,
-                    contentDescription = "Back",
+                    contentDescription = "Quay lại",
                     tint = Color.White
                 )
             }
 
             Text(
-                text = "Support",
+                text = "Hỗ trợ khách hàng",
                 fontSize = 20.sp,
                 color = Color.White,
                 fontWeight = FontWeight.SemiBold
             )
         }
 
-        // ⚪ WHITE CONTAINER
+        // WHITE CONTAINER
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -91,7 +86,7 @@ fun ChatScreen(
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
 
-                // 💬 CHAT LIST
+                // CHAT LIST
                 LazyColumn(
                     modifier = Modifier
                         .weight(1f)
@@ -104,7 +99,7 @@ fun ChatScreen(
                     }
                 }
 
-                // ⌨️ INPUT BAR
+                // INPUT BAR
                 ChatInputBar(
                     onSend = { text ->
                         messages.add(ChatMessage(text, true))
@@ -112,7 +107,7 @@ fun ChatScreen(
                         // fake bot reply
                         messages.add(
                             ChatMessage(
-                                "Thanks for your message. Our staff will contact you soon 🙌",
+                                "Cảm ơn tin nhắn của bạn. Nhân viên hỗ trợ sẽ liên hệ với bạn sớm nhất có thể 🙌",
                                 false
                             )
                         )
@@ -123,9 +118,7 @@ fun ChatScreen(
     }
 }
 
-// --------------------
 // CHAT BUBBLE
-// --------------------
 @Composable
 fun ChatBubble(message: ChatMessage) {
     Row(
@@ -152,4 +145,3 @@ fun ChatBubble(message: ChatMessage) {
         }
     }
 }
-

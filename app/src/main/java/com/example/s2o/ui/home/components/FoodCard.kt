@@ -41,7 +41,7 @@ fun FoodCard(
 
 
 
-            // 💲 Price
+            // Price
             Box(
                 modifier = Modifier
                     .padding(8.dp)
@@ -57,7 +57,7 @@ fun FoodCard(
             }
         }
 
-        // 📝 NAME
+        //NAME
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = name,

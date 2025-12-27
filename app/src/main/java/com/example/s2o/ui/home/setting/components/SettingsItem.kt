@@ -48,7 +48,7 @@ fun SettingsItem(
         )
 
         Icon(
-            imageVector = Icons.Outlined.ExpandMore, // nhỏ & đúng
+            imageVector = Icons.Outlined.ExpandMore,
             contentDescription = null,
             tint = Color(0xFFFF6F00)
         )

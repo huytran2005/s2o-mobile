@@ -49,20 +49,20 @@ fun EmptyOrderState() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 100.dp), // Thêm padding để đẩy nội dung xuống dưới tab buttons
-        horizontalAlignment = Alignment.CenterHorizontally, // Căn giữa theo chiều ngang
-        verticalArrangement = Arrangement.Center // Căn giữa theo chiều dọc nếu cần
+            .padding(top = 100.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         Image(
             painter = painterResource(R.drawable.icon_empty),
-            contentDescription = "Empty Order",
-            modifier = Modifier.size(200.dp) // Thay scale(4f) bằng size cụ thể (ví dụ 200dp)
+            contentDescription = "Đơn Hàng Đang Trống",
+            modifier = Modifier.size(200.dp)
         )
 
-        Spacer(modifier = Modifier.height(60.dp)) // Tăng khoảng cách vì ảnh giờ đã to thật sự
+        Spacer(modifier = Modifier.height(60.dp))
 
         Text(
-            "You don't have any active orders at this time",
+            "Bạn không có đơn hàng trong thời gian này",
             color = primary
         )
     }

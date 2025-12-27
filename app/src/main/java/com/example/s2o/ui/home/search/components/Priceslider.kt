@@ -16,7 +16,7 @@ import com.example.s2o.ui.theme.primary
 fun PriceSliderSection() {
     var price by remember { mutableFloatStateOf(50f) }
 
-    Text("Price", fontSize = 16.sp)
+    Text("Giá", fontSize = 16.sp)
 
     Slider(
         value = price,

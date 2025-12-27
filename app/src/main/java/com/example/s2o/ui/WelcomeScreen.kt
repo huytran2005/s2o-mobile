@@ -15,6 +15,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import com.example.s2o.R
@@ -38,9 +39,9 @@ fun WelcomeScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Image(
-            painter = painterResource(id = R.drawable.logo_restaurant),
+            painter = painterResource(id = R.drawable.logo),
             contentDescription = "logo",
-            modifier = Modifier.size(width = 200.dp, height = 260.dp)
+            modifier = Modifier.size(width = 200.dp, height = 260.dp).scale(2f)
         )
         Text("Chào mừng bạn đến với nhà hàng chúng tôi", color = Color.White, fontSize = 16.sp, modifier = Modifier.padding(bottom = 8.dp))
         

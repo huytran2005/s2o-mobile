@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,13 +26,13 @@ import com.example.s2o.ui.home.profile.components.ProfileInput
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
-    onBackClick: () -> Unit = {}
+    onBack: () -> Unit = {}
 ) {
     // STATE
-    var fullName by remember { mutableStateOf("John Smith") }
-    var dob by remember { mutableStateOf("09 / 10 / 1991") }
-    var email by remember { mutableStateOf("johnsmith@example.com") }
-    var phone by remember { mutableStateOf("+123 567 89000") }
+    var fullName by remember { mutableStateOf("Nguyễn Văn A") }
+    var dob by remember { mutableStateOf("01 / 01 / 1995") }
+    var email by remember { mutableStateOf("nguyenvana@gmail.com") }
+    var phone by remember { mutableStateOf("0901234567") }
 
     Scaffold(
         containerColor = Color(0xFFF5CB58),
@@ -39,16 +40,17 @@ fun ProfileScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "My profile",
+                        text = "Hồ sơ của tôi",
                         color = Color.White,
-                        fontSize = 18.sp
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = onBackClick) {
+                    IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.Outlined.ArrowBack,
-                            contentDescription = "Back",
+                            contentDescription = "Quay lại",
                             tint = Color.White
                         )
                     }
@@ -66,10 +68,10 @@ fun ProfileScreen(
                 .padding(innerPadding)
         ) {
 
-            // 🔹 CARD TRẮNG (LUÔN Ở DƯỚI HEADER – RESPONSIVE)
+            // 🔹 CARD TRẮNG
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxWidth().fillMaxHeight()
                     .padding(top = 64.dp)
                     .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp))
                     .background(Color.White)
@@ -78,15 +80,15 @@ fun ProfileScreen(
 
                 Spacer(modifier = Modifier.height(72.dp))
 
-                ProfileInput("Full Name", fullName) { fullName = it }
-                ProfileInput("Date of Birth", dob) { dob = it }
+                ProfileInput("Họ và Tên", fullName) { fullName = it }
+                ProfileInput("Ngày sinh", dob) { dob = it }
                 ProfileInput("Email", email) { email = it }
-                ProfileInput("Phone Number", phone) { phone = it }
+                ProfileInput("Số điện thoại", phone) { phone = it }
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(32.dp))
 
                 Button(
-                    onClick = { /* update profile */ },
+                    onClick = { /* cập nhật hồ sơ */ },
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .height(44.dp),
@@ -97,54 +99,15 @@ fun ProfileScreen(
                     contentPadding = PaddingValues(horizontal = 32.dp)
                 ) {
                     Text(
-                        text = "Update Profile",
+                        text = "Cập nhật hồ sơ",
                         color = Color.White,
-                        fontSize = 14.sp
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold
                     )
                 }
 
                 Spacer(modifier = Modifier.height(80.dp))
             }
-
-            // 🔹 AVATAR (ĐÈ LÊN CARD – KHÔNG PHỤ THUỘC MÀN HÌNH)
-            Box(
-                modifier = Modifier
-                    .size(110.dp)
-                    .align(Alignment.TopCenter)
-                    .offset(y = 32.dp)
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.icon_pizza),
-                    contentDescription = "Avatar",
-                    modifier = Modifier
-                        .size(100.dp)
-                        .clip(CircleShape)
-                        .align(Alignment.Center),
-                    contentScale = ContentScale.Crop
-                )
-
-                Box(
-                    modifier = Modifier
-                        .size(28.dp)
-                        .background(Color(0xFFE95322), CircleShape)
-                        .align(Alignment.BottomEnd),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.CameraAlt,
-                        contentDescription = "Change Avatar",
-                        tint = Color.White,
-                        modifier = Modifier.size(16.dp)
-                    )
-                }
-            }
         }
     }
 }
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ProfileScreen() {
-    ProfileScreen()
-}
-

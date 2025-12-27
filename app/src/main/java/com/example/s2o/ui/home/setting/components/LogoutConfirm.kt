@@ -25,7 +25,7 @@ fun LogoutConfirm(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black.copy(alpha = 0.3f))
-            .statusBarsPadding() // ⭐ QUAN TRỌNG
+            .statusBarsPadding()
 
     ) {
         Column(
@@ -39,7 +39,7 @@ fun LogoutConfirm(
                 .padding(24.dp)
         ) {
             Text(
-                text = "Are you sure you want to log out?",
+                text = "Bạn có chắc muốn đăng xuất",
                 color = Color.White
             )
 
@@ -50,12 +50,12 @@ fun LogoutConfirm(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 TextButton(onClick = onCancel) {
-                    Text("Cancel", color = Color.White)
+                    Text("Hủy", color = Color.White)
                 }
 
                 Button(onClick = onConfirm,
                     colors = ButtonDefaults.buttonColors(second)) {
-                    Text("Yes, logout",color = Color.Black)
+                    Text("Đăng xuất",color = Color.Black)
                 }
             }
         }
